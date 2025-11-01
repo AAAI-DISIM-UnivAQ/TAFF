@@ -1,0 +1,43 @@
+File;Test_Name;DropSpec;Accuracy;Total_Obs;Matches
+NEABT_input_100.pl;user_safety;[user, [driving_safety]];0,7200;100;72
+NEABT_input_100.pl;user_experience;[user, [driving_experience]];1,0000;100;100
+NEABT_input_100.pl;env_speed;[env, [speed]];1,0000;100;100
+NEABT_input_100.pl;domain_weather;[domain, [weather_conditions]];1,0000;100;100
+NEABT_input_100.pl;domain_danger;[domain, [road_dangerousness]];1,0000;100;100
+NEABT_input_100.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8700;100;87
+NEABT_input_100.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,2000;100;20
+NEABT_input_500.pl;user_safety;[user, [driving_safety]];0,7120;500;356
+NEABT_input_500.pl;user_experience;[user, [driving_experience]];0,9980;500;499
+NEABT_input_500.pl;env_speed;[env, [speed]];1,0000;500;500
+NEABT_input_500.pl;domain_weather;[domain, [weather_conditions]];1,0000;500;500
+NEABT_input_500.pl;domain_danger;[domain, [road_dangerousness]];1,0000;500;500
+NEABT_input_500.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8760;500;438
+NEABT_input_500.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,1680;500;84
+NEABT_input_1000.pl;user_safety;[user, [driving_safety]];0,7040;1000;704
+NEABT_input_1000.pl;user_experience;[user, [driving_experience]];0,9990;1000;999
+NEABT_input_1000.pl;env_speed;[env, [speed]];1,0000;1000;1000
+NEABT_input_1000.pl;domain_weather;[domain, [weather_conditions]];1,0000;1000;1000
+NEABT_input_1000.pl;domain_danger;[domain, [road_dangerousness]];1,0000;1000;1000
+NEABT_input_1000.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8310;1000;831
+NEABT_input_1000.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,1780;1000;178
+NEABT_input_2000.pl;user_safety;[user, [driving_safety]];0,6955;2000;1391
+NEABT_input_2000.pl;user_experience;[user, [driving_experience]];0,9980;2000;1996
+NEABT_input_2000.pl;env_speed;[env, [speed]];1,0000;2000;2000
+NEABT_input_2000.pl;domain_weather;[domain, [weather_conditions]];1,0000;2000;2000
+NEABT_input_2000.pl;domain_danger;[domain, [road_dangerousness]];1,0000;2000;2000
+NEABT_input_2000.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8725;2000;1745
+NEABT_input_2000.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,1680;2000;336
+NEABT_input_5000.pl;user_safety;[user, [driving_safety]];0,6990;5000;3495
+NEABT_input_5000.pl;user_experience;[user, [driving_experience]];0,9986;5000;4993
+NEABT_input_5000.pl;env_speed;[env, [speed]];1,0000;5000;5000
+NEABT_input_5000.pl;domain_weather;[domain, [weather_conditions]];1,0000;5000;5000
+NEABT_input_5000.pl;domain_danger;[domain, [road_dangerousness]];1,0000;5000;5000
+NEABT_input_5000.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8688;5000;4344
+NEABT_input_5000.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,1702;5000;851
+NEABT_input_10000.pl;user_safety;[user, [driving_safety]];0,7026;10000;7026
+NEABT_input_10000.pl;user_experience;[user, [driving_experience]];0,9990;10000;9990
+NEABT_input_10000.pl;env_speed;[env, [speed]];1,0000;10000;10000
+NEABT_input_10000.pl;domain_weather;[domain, [weather_conditions]];1,0000;10000;10000
+NEABT_input_10000.pl;domain_danger;[domain, [road_dangerousness]];1,0000;10000;10000
+NEABT_input_10000.pl;env_speed_traffic;[env, [speed, traffic_status]];0,8597;10000;8597
+NEABT_input_10000.pl;user_all;[user, [crashes_last_year, address, driving_safety, driving_experience]];0,1757;10000;1757

@@ -1,0 +1,11 @@
+File;Test_Name;DropSpec;Accuracy;Total_Obs;Matches
+NEABT_input_10000.pl;env_traffic_status;[env, [traffic_status]];0,8597;10000;8597
+NEABT_input_10000.pl;env_driving_hours;[env, [driving_hours]];1,0000;10000;10000
+NEABT_input_10000.pl;env_stops;[env, [stops]];0,9609;10000;9609
+NEABT_input_10000.pl;env_avg_stop;[env, [avg_stop_duration]];0,9990;10000;9990
+NEABT_input_10000.pl;env_location;[env, [location]];1,0000;10000;10000
+NEABT_input_10000.pl;user_crashes;[user, [crashes_last_year]];0,4770;10000;4770
+NEABT_input_10000.pl;user_address;[user, [address]];1,0000;10000;10000
+NEABT_input_10000.pl;domain_road_cond;[domain, [road_conditions]];1,0000;10000;10000
+NEABT_input_10000.pl;env_all;[env, [traffic_status, driving_hours, speed, stops, avg_stop_duration, location]];0,7812;10000;7812
+NEABT_input_10000.pl;domain_all;[domain, [road_conditions, weather_conditions, road_dangerousness]];1,0000;10000;10000
