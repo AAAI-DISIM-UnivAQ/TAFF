@@ -6,11 +6,11 @@ import os
 from pyswip import Prolog
 from pyswip.prolog import PrologError
 
-# 1. File .pl da caricare
+# 1. .pl files to load
 PROLOG_CORE_FILE = 'neabt_core_lists.pl'
 PROLOG_IO_FILE = 'neabt_io_lists.pl'
 
-# 2. Configurazione Efficienza
+# 2. Efficiency Configuration
 EFFICIENCY_RUNS = 100
 EFFICIENCY_FILES = [
     'NEABT_input_100.pl',
@@ -22,7 +22,7 @@ EFFICIENCY_FILES = [
 ]
 EFFICIENCY_REPORT_FILE = 'efficiency_report.csv'
 
-# 3. Configurazione Effectiveness
+# 3. Effectiveness Configuration
 EFFECTIVENESS_TESTS = {
     "user_safety": ["user", ["driving_safety"]],
     "user_experience": ["user", ["driving_experience"]],
@@ -34,10 +34,10 @@ EFFECTIVENESS_TESTS = {
 }
 EFFECTIVENESS_REPORT_FILE = 'effectiveness_report.csv'
 
-# 4. Nome del file per il report dei test aggiuntivi
+# 4. Filename for the additional test report
 ADDITIONAL_EFFECTIVENESS_REPORT_FILE = 'effectiveness_report_10k_additional.csv'
 
-# 5. Configurazione Effectiveness Aggiuntiva (solo 10k)
+# 5. Additional Effectiveness Configuration (10k only)
 EFFECTIVENESS_10K_FILE = 'NEABT_input_10000.pl'
 ADDITIONAL_EFFECTIVENESS_TESTS = {
     "env_traffic_status": ["env", ["traffic_status"]],
@@ -59,23 +59,23 @@ ADDITIONAL_EFFECTIVENESS_TESTS = {
 
 
 def setup_prolog():
-    """Inizializza Prolog e carica gli script necessari."""
-    print("Inizializzazione SWI-Prolog e caricamento script...")
+    """Initializes Prolog and loads the necessary scripts."""
+    print("Initializing SWI-Prolog and loading scripts...")
     prolog = Prolog()
     
     try:
         prolog.consult(PROLOG_CORE_FILE)
         prolog.consult(PROLOG_IO_FILE)
-        print(f"Caricati: {PROLOG_CORE_FILE}, {PROLOG_IO_FILE}\n")
+        print(f"Loaded: {PROLOG_CORE_FILE}, {PROLOG_IO_FILE}\n")
         return prolog
     except PrologError as e:
-        print(f"ERRORE: Impossibile caricare i file Prolog: {e}")
-        print("Assicurati che i file .pl siano nella stessa cartella e che SWI-Prolog sia installato.")
+        print(f"ERROR: Could not load Prolog files: {e}")
+        print("Ensure the .pl files are in the same folder and SWI-Prolog is installed.")
         sys.exit(1)
 
 def run_efficiency_tests(prolog):
-    """Esegue i test di efficienza 100 volte e salva i risultati."""
-    print(f"--- Avvio Test Efficienza ({EFFICIENCY_RUNS} esecuzioni) ---")
+    """Runs the efficiency tests 100 times and saves the results."""
+    print(f"--- Starting Efficiency Test ({EFFICIENCY_RUNS} runs) ---")
     
     all_results = {file_name: {'load_ms': [], 'exec_ms': []} for file_name in EFFICIENCY_FILES}
     
@@ -88,13 +88,13 @@ def run_efficiency_tests(prolog):
             writer.writerow(['Run', 'File', 'n_obs', 'load_ms', 'exec_ms'])
             
             for i in range(EFFICIENCY_RUNS):
-                print(f"  Esecuzione Efficienza {i + 1}/{EFFICIENCY_RUNS}...")
+                print(f"  Efficiency Run {i + 1}/{EFFICIENCY_RUNS}...")
                 
                 query = f"run_efficiency({prolog_file_list}, Report)."
                 result = list(prolog.query(query))
                 
                 if not result:
-                    print(f"ERRORE: La query di efficienza non ha restituito risultati (Run {i+1}).")
+                    print(f"ERROR: Efficiency query returned no results (Run {i+1}).")
                     continue
 
                 report = result[0]['Report']
@@ -111,10 +111,10 @@ def run_efficiency_tests(prolog):
                         all_results[file_name]['load_ms'].append(load_ms)
                         all_results[file_name]['exec_ms'].append(exec_ms)
 
-            print(f"\n  Dati grezzi salvati in {EFFICIENCY_REPORT_FILE}")
+            print(f"\n  Raw data saved to {EFFICIENCY_REPORT_FILE}")
 
             writer.writerow([])
-            writer.writerow(['--- Valori Medi ---'])
+            writer.writerow(['--- Average Values ---'])
             writer.writerow(['File', 'n_obs', 'Avg_Load_ms', 'Avg_Exec_ms'])
             
             for file_name in EFFICIENCY_FILES:
@@ -127,16 +127,16 @@ def run_efficiency_tests(prolog):
                 
                 writer.writerow([file_name, n_obs, avg_load_str, avg_exec_str])
                 
-            print(f"  Valori medi aggiunti a {EFFICIENCY_REPORT_FILE}")
+            print(f"  Average values added to {EFFICIENCY_REPORT_FILE}")
 
     except PrologError as e:
-        print(f"ERRORE durante l'esecuzione dell'efficienza: {e}")
+        print(f"ERROR during efficiency run: {e}")
     except Exception as e:
-        print(f"ERRORE (Python): {e}")
+        print(f"ERROR (Python): {e}")
 
 def run_effectiveness_tests(prolog):
-    """Esegue i test di effectiveness standard su tutti i file e salva i risultati."""
-    print(f"\n--- Avvio Test Effectiveness (Standard) ---")
+    """Runs the standard effectiveness tests on all files and saves the results."""
+    print(f"\n--- Starting Effectiveness Test (Standard) ---")
     
     try:
         with open(EFFECTIVENESS_REPORT_FILE, 'w', newline='') as f:
@@ -144,7 +144,7 @@ def run_effectiveness_tests(prolog):
             writer.writerow(['File', 'Test_Name', 'DropSpec', 'Accuracy', 'Total_Obs', 'Matches'])
             
             for file_name in EFFICIENCY_FILES:
-                print(f"  Esecuzione test standard su {file_name}...")
+                print(f"  Running standard tests on {file_name}...")
                 
                 for test_name, drop_spec_list in EFFECTIVENESS_TESTS.items():
                     
@@ -159,7 +159,7 @@ def run_effectiveness_tests(prolog):
                         result = list(prolog.query(query))
                         
                         if not result:
-                            print(f"    ERRORE: Test '{test_name}' non ha restituito risultati.")
+                            print(f"    ERROR: Test '{test_name}' returned no results.")
                             continue
                             
                         res = result[0]
@@ -172,23 +172,23 @@ def run_effectiveness_tests(prolog):
                         writer.writerow([file_name, test_name, drop_spec_str, accuracy_str, total_obs, matches])
                         
                     except PrologError as e:
-                        print(f"    ERRORE (Prolog) su test '{test_name}': {e}")
+                        print(f"    ERROR (Prolog) on test '{test_name}': {e}")
                         return
 
-            print(f"\n  Report Effectiveness Standard salvato in {EFFECTIVENESS_REPORT_FILE}")
+            print(f"\n  Standard Effectiveness Report saved to {EFFECTIVENESS_REPORT_FILE}")
 
     except Exception as e:
-        print(f"ERRORE (Python) durante l'effectiveness: {e}")
+        print(f"ERROR (Python) during effectiveness run: {e}")
 
 def run_additional_effectiveness_tests(prolog):
-    """Esegue i test di effectiveness aggiuntivi SOLO sul file 10k e salva su un file separato."""
-    print(f"\n--- Avvio Test Effectiveness Aggiuntivi (solo {EFFECTIVENESS_10K_FILE}) ---")
+    """Runs additional effectiveness tests ONLY on the 10k file and saves to a separate file."""
+    print(f"\n--- Starting Additional Effectiveness Tests ({EFFECTIVENESS_10K_FILE} only) ---")
     
     file_name = EFFECTIVENESS_10K_FILE
     report_file = ADDITIONAL_EFFECTIVENESS_REPORT_FILE 
     
     if file_name not in EFFICIENCY_FILES:
-        print(f"ATTENZIONE: Il file {file_name} non è in EFFICIENCY_FILES. Test aggiuntivi saltati.")
+        print(f"WARNING: File {file_name} is not in EFFICIENCY_FILES. Skipping additional tests.")
         return
 
     try:
@@ -196,9 +196,9 @@ def run_additional_effectiveness_tests(prolog):
             writer = csv.writer(f, delimiter=';')
             
             writer.writerow(['File', 'Test_Name', 'DropSpec', 'Accuracy', 'Total_Obs', 'Matches'])
-            print(f"  Salvataggio report in: {report_file}")
+            print(f"  Saving report to: {report_file}")
 
-            print(f"  Esecuzione test aggiuntivi su {file_name}...")
+            print(f"  Running additional tests on {file_name}...")
             
             for test_name, drop_spec_list in ADDITIONAL_EFFECTIVENESS_TESTS.items():
                 
@@ -214,7 +214,7 @@ def run_additional_effectiveness_tests(prolog):
                     result = list(prolog.query(query))
                     
                     if not result:
-                        print(f"    ERRORE: Test '{test_name}' non ha restituito risultati.")
+                        print(f"    ERROR: Test '{test_name}' returned no results.")
                         continue
                         
                     res = result[0]
@@ -227,34 +227,34 @@ def run_additional_effectiveness_tests(prolog):
                     writer.writerow([file_name, test_name, drop_spec_str, accuracy_str, total_obs, matches])
                     
                 except PrologError as e:
-                    print(f"    ERRORE (Prolog) su test '{test_name}': {e}")
+                    print(f"    ERROR (Prolog) on test '{test_name}': {e}")
                     continue
 
-            print(f"\n  Report Effectiveness Aggiuntivo salvato in {report_file}")
+            print(f"\n  Additional Effectiveness Report saved to {report_file}")
 
     except Exception as e:
-        print(f"ERRORE (Python) durante l'effectiveness aggiuntiva: {e}")
+        print(f"ERROR (Python) during additional effectiveness run: {e}")
 
 def main():
-    # 1. Setup del parser
-    parser = argparse.ArgumentParser(description="Script per eseguire test NEABT.")
+    # 1. Setup the parser
+    parser = argparse.ArgumentParser(description="Script to run NEABT tests.")
     parser.add_argument('--efficiency_all', 
                         action='store_true', 
-                        help='Esegue i test di Efficienza su tutti i file.')
+                        help='Run Efficiency tests on all files.')
     parser.add_argument('--effectiveness_all', 
                         action='store_true', 
-                        help='Esegue i test di Effectiveness standard su tutti i file.')
+                        help='Run standard Effectiveness tests on all files.')
     parser.add_argument('--drop_10000', 
                         action='store_true', 
-                        help='Esegue i test di Effectiveness aggiuntivi solo sul file da 10k.')
+                        help='Run additional Effectiveness tests on the 10k file only.')
     parser.add_argument('--all', 
                         action='store_true', 
-                        help='Esegue TUTTI i test disponibili (efficiency + effectiveness + drop_10000).')
+                        help='Run ALL available tests (efficiency + effectiveness + drop_10000).')
 
-    # 2. Parsing degli argomenti
+    # 2. Parse arguments
     args = parser.parse_args()
 
-    # 3. Logica per determinare quali test eseguire
+    # 3. Logic to determine which tests to run
     if args.all:
         run_eff = True
         run_std_eff = True
@@ -264,19 +264,19 @@ def main():
         run_std_eff = args.effectiveness_all
         run_10k_eff = args.drop_10000
 
-    # 4. Controlla se almeno un test è stato selezionato
+    # 4. Check if at least one test was selected
     if not (run_eff or run_std_eff or run_10k_eff):
-        print("Nessun test selezionato. Esecuzione terminata.")
-        print("Usa -h o --help per vedere le opzioni disponibili.")
+        print("No test selected. Exiting.")
+        print("Use -h or --help to see available options.")
         sys.exit(0)
 
-    # 5. Inizializza Prolog (solo se serve)
-    print("Uno o più test selezionati. Avvio Prolog...")
+    # 5. Initialize Prolog (only if needed)
+    print("One or more tests selected. Starting Prolog...")
     prolog = setup_prolog()
     if not prolog:
         sys.exit(1)
 
-    # 6. Esegui i test selezionati
+    # 6. Run the selected tests
     if run_eff:
         run_efficiency_tests(prolog)
     
@@ -286,7 +286,7 @@ def main():
     if run_10k_eff:
         run_additional_effectiveness_tests(prolog)
 
-    print("\n--- Esperimenti completati ---")
+    print("\n--- Experiments complete ---")
 
 if __name__ == "__main__":
     main()
