@@ -2,11 +2,24 @@
 
 This project contains a set of Python scripts designed to automate the **efficiency** and **effectiveness** testing of a **NEABT (Neuro-Symbolic)** system implemented in **Prolog**.
 
-The framework uses Python’s **pyswip** library to interface with an **SWI-Prolog** backend.  
+The framework uses Python's **pyswip** library to interface with an **SWI-Prolog** backend.  
 It runs two main types of experiments:
 
 - **Efficiency:** Measures Prolog's execution and data-loading time as the number of input observations increases.  
 - **Effectiveness:** Measures the system's accuracy when parts of the input knowledge (Prolog facts) are intentionally omitted, comparing the result against a "ground truth" (the run with all facts present).
+
+> **Associated Pre-print:**
+>
+> **Neural Empathy-Aware Behavior Trees meets Knowledge Graphs for Affective Human-AI Teaming**
+>
+> *Glenda Amaral, University of Twente, Enschede, The Netherlands*
+> *Stefania Costantini, University of L'Aquila, Italy*
+> *Giovanni De Gasperis, University of L'Aquila, Italy*
+> *Lorenzo De Lauretis, University of L'Aquila, Italy*
+> *Pierangelo Dell'Acqua, Linköping University, Linköping, Sweden*
+> *Giancarlo Guizzardi, University of Twente, Enschede, The Netherlands*
+> *Francesco Gullo, University of L'Aquila, Italy*
+> *Andrea Rafanelli, University of Pisa, Italy*
 
 ---
 
@@ -163,4 +176,4 @@ These 13 facts are divided into three categories:
 
 ## License
 
-This project is open-source and may be used, modified, and redistributed under the terms of the MIT License.
+This project is open-source and may be used, modified, and redistributed under the terms of the Apache-2.0 license
